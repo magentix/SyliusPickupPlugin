@@ -1,0 +1,9 @@
+pickup:
+    form:
+        shipment:
+            error:
+                pickup_id: Merci de sélectionner un point de retrait
+            list:
+                search: Recherche
+                postcode: Code postal
+                select: Sélectionnez un point de retrait

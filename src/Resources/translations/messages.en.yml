@@ -1,0 +1,9 @@
+pickup:
+    form:
+        shipment:
+            error:
+                pickup_id: Please select a pickup
+            list:
+                search: Search
+                postcode: Postcode
+                select: Select a pickup location

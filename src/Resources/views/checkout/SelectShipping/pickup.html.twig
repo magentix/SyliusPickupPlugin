@@ -1,0 +1,8 @@
+{% set route = app.request.attributes.get('_route') %}
+
+{% if 'select_shipping' in route %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/magentixpickupplugin/pickup.js'} %}
+    <script>
+        new pickupClass({url:'{{ path('magentix_pickup_ajax_pickup_list') }}' });
+    </script>
+{% endif %}

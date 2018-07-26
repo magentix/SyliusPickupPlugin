@@ -1,0 +1,3 @@
+magentix_pickup_plugin_shop:
+    resource: "@MagentixPickupPlugin/Resources/config/routing/shop.yml"
+    prefix: /{_locale}

@@ -1,0 +1,27 @@
+{
+    "name": "magentix/pickup-plugin",
+    "type": "sylius-plugin",
+    "description": "Pickup Shipping plugin for Sylius.",
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+        "php": "^7.1",
+        "sylius/sylius": "~1.2",
+        "symfony/symfony": "^3.4|^4.1"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^4.0",
+        "phpunit/phpunit": "^6.5",
+        "sylius-labs/coding-standard": "^2.0"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "alpha",
+    "autoload": {
+        "psr-4": {
+            "MagentixPickupPlugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/Application/app/AppKernel.php"]
+    }
+}

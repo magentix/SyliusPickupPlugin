@@ -1,0 +1,37 @@
+{% set list = method.pickup_list %}
+{% if list|length %}
+    <!-- @TODO Move style in an appropriate CSS -->
+    <style>
+        .pickup-list ul.ui.list li:before{content:''}
+    </style>
+    <div class="pickup-form">
+        <h4 class="ui dividing header">{{ 'pickup.form.shipment.list.search' | trans }}</h4>
+        <form class="item pickup-address" action="#">
+            <div class="field">
+                <label for="pickup_postcode_{{ method.method }}">{{ 'pickup.form.shipment.list.postcode' | trans }}</label>
+                <input type="text" name="postcode" value="{{ method.pickup_postcode }}" id="pickup_postcode_{{ method.method }}" />
+            </div>
+            <div class="field">
+                <button type="submit" class="ui large primary icon labeled button">
+                    <i class="arrow right icon"></i>
+                    {{ 'pickup.form.shipment.list.search' | trans }}
+                </button>
+            </div>
+        </form>
+        <h4 class="ui dividing header">{{ 'pickup.form.shipment.list.select' | trans }}</h4>
+        <div class="item pickup-list">
+            {% if list.error %}
+                {{ list.error | trans }}
+            {% else %}
+                <ul class="ui radio checkbox list">
+                    {% for pickup in list.pickup %}
+                        <li>
+                            <input type="radio" name="sylius_checkout_select_shipping[shipments][{{ method.index }}][pickup_id]" value="{{ pickup.id }}" id="pickup_{{ pickup.id }}"{% if (method.pickup_current_id == pickup.id) %} checked{% endif %}/>
+                            <label for="pickup_{{ pickup.id }}"><strong>{{ pickup.company }}</strong> - {{ pickup.street_1 }} {{ pickup.postcode }} {{ pickup.city }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
