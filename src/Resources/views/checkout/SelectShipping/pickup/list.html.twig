@@ -21,7 +21,7 @@
         <h4 class="ui dividing header">{{ 'pickup.form.shipment.list.select' | trans }}</h4>
         <div class="item pickup-list">
             {% if list.error %}
-                {{ list.error | trans }}
+                <p class="ui red label">{{ list.error | trans }}</p>
             {% else %}
                 <ul class="ui radio checkbox list">
                     {% for pickup in list.pickup %}
