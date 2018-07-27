@@ -54,10 +54,10 @@ var pickupClass = function (options) {
         var pickup = this;
 
         $.ajax({
-            url: getUrl(method, postcode, countryCode),
+            url: getUrl(method),
             type: 'post',
             context: this,
-            data:{'index':index},
+            data:{'index':index, 'postcode':postcode, 'country_code':countryCode},
             beforeSend: function() {
                 pickup.remove();
                 pickup.loading(1);
@@ -128,20 +128,10 @@ var pickupClass = function (options) {
      * Retrieve Controller URL
      *
      * @param {string} method
-     * @param {string} postcode
-     * @param {string} countryCode
      * @returns {string}
      */
-    var getUrl = function(method, postcode, countryCode) {
-        var url = vars.url + '/' + method;
-        if (postcode) {
-            url += '/' + postcode;
-        }
-        if (countryCode) {
-            url += '/' + countryCode;
-        }
-
-        return url;
+    var getUrl = function(method) {
+        return vars.url + '/' + method;
     };
 
     this.construct(options);

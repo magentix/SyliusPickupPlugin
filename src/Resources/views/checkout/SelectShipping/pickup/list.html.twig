@@ -8,6 +8,14 @@
                 <input type="text" name="postcode" value="{{ method.pickup_postcode }}" id="pickup_postcode_{{ method.method }}" />
             </div>
             <div class="field">
+                <label for="pickup_country_code_{{ method.method }}">{{ 'pickup.form.shipment.list.country_code' | trans }}</label>
+                <select name="country_code" id="pickup_country_code_{{ method.method }}">
+                    {% for code,name in method.countries %}
+                        <option value="{{ code }}"{% if (method.pickup_country_code == code) %} selected{% endif %}>{{ name | trans }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
                 <button type="submit" class="ui large primary icon labeled button">
                     <i class="arrow right icon"></i>
                     {{ 'pickup.form.shipment.list.search' | trans }}

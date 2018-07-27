@@ -1,9 +1,7 @@
 magentix_pickup_checkout_pickup_list:
-    path: /pickup-list/{method}/{postcode}/{countryCode}
+    path: /pickup-list/{method}
     defaults:
         _controller: MagentixPickupPlugin:Pickup:list
-        postcode: ~
-        countryCode: ~
 
 magentix_pickup_ajax_pickup_list:
     path: /pickup-list

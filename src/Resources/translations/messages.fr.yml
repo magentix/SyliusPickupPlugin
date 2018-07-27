@@ -6,4 +6,5 @@ pickup:
             list:
                 search: Recherche
                 postcode: Code postal
+                country_code: Pays
                 select: Sélectionnez un point de retrait

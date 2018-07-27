@@ -3,3 +3,4 @@ services:
         public: true
         arguments:
             - "@sylius.registry.shipping_calculator"
+            - "@sylius.repository.country"

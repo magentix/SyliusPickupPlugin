@@ -6,4 +6,5 @@ pickup:
             list:
                 search: Search
                 postcode: Postcode
+                country_code: Country
                 select: Select a pickup location

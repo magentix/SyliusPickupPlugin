@@ -12,9 +12,12 @@ use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Component\Addressing\Model\CountryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Intl;
 
 final class PickupController extends Controller
 {
@@ -25,12 +28,20 @@ final class PickupController extends Controller
     private $calculatorRegistry;
 
     /**
+     * @var RepositoryInterface
+     */
+    private $countryRepository;
+
+    /**
      * @param ServiceRegistryInterface $calculatorRegistry
+     * @param RepositoryInterface $countryRepository
      */
     public function __construct(
-        ServiceRegistryInterface $calculatorRegistry
+        ServiceRegistryInterface $calculatorRegistry,
+        RepositoryInterface $countryRepository
     ) {
         $this->calculatorRegistry = $calculatorRegistry;
+        $this->countryRepository  = $countryRepository;
     }
 
     /**
@@ -38,19 +49,20 @@ final class PickupController extends Controller
      *
      * @param Request $request
      * @param string $method
-     * @param string|null $postcode
-     * @param string|null $countryCode
-     *
      * @return Response|string
      */
-    public function listAction(Request $request, ?string $method, ?string $postcode, ?string $countryCode): Response
+    public function listAction(Request $request, ?string $method): Response
     {
         $calculator = $this->getCalculator($method);
 
-        $pickupCurrentId = null;
-        $pickupTemplate  = $this->getDefaultTemplate();
-        $pickupList      = [];
-        $pickupPostcode   = '';
+        $postcode    = $request->get('postcode', null);
+        $countryCode = $request->get('country_code', null);
+
+        $pickupTemplate    = $this->getDefaultTemplate();
+        $pickupCurrentId   = null;
+        $pickupList        = [];
+        $pickupPostcode    = '';
+        $pickupCountryCode = [];
 
         /** @var PickupCalculatorInterface $calculator */
         if ($calculator instanceof PickupCalculatorInterface) {
@@ -74,6 +86,7 @@ final class PickupController extends Controller
                 }
 
                 $pickupPostcode = $address->getPostcode();
+                $pickupCountryCode = $address->getCountryCode();
 
                 $configuration = [];
                 $shippingMethod = $this->getMethod($method);
@@ -86,11 +99,13 @@ final class PickupController extends Controller
         }
 
         $method = [
-            'pickup_list'  => $pickupList,
-            'pickup_current_id' => $pickupCurrentId,
-            'pickup_postcode' => $pickupPostcode,
-            'index' => $request->get('index', 0),
-            'method' => $method,
+            'pickup_list'         => $pickupList,
+            'pickup_current_id'   => $pickupCurrentId,
+            'pickup_postcode'     => $pickupPostcode,
+            'pickup_country_code' => $pickupCountryCode,
+            'countries'           => $this->getAvailableCountries(),
+            'index'               => $request->get('index', 0),
+            'method'              => $method,
         ];
 
         return $this->render($pickupTemplate, ['method' => $method]);
@@ -184,11 +199,30 @@ final class PickupController extends Controller
     }
 
     /**
+     * @return array|CountryInterface[]
+     */
+    private function getAvailableCountries(): array
+    {
+        $countries = Intl::getRegionBundle()->getCountryNames();
+
+        /** @var CountryInterface[] $definedCountries */
+        $definedCountries = $this->countryRepository->findAll();
+
+        $availableCountries = [];
+
+        foreach ($definedCountries as $country) {
+            $availableCountries[$country->getCode()] = $countries[$country->getCode()];
+        }
+
+        return $availableCountries;
+    }
+
+    /**
      * Retrieve default template for pickup list
      *
      * @return string
      */
-    protected function getDefaultTemplate()
+    protected function getDefaultTemplate(): string
     {
         return '@MagentixPickupPlugin/checkout/SelectShipping/pickup/list.html.twig';
     }
