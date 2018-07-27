@@ -1,0 +1,16 @@
+services:
+    app.form.extension.type.checkout_shipment:
+        class: MagentixPickupPlugin\Form\Extension\CheckoutShipmentTypeExtension
+        arguments:
+            - "@sylius.registry.shipping_calculator"
+            - "@sylius.repository.shipping_method"
+            - "@translator.default"
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\CoreBundle\Form\Type\Checkout\ShipmentType }
+
+    app.form.extension.type.shipping_method_choice:
+        class: MagentixPickupPlugin\Form\Extension\ShippingMethodChoiceTypeExtension
+        arguments:
+            - "@sylius.registry.shipping_calculator"
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodChoiceType }
