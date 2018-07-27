@@ -28,7 +28,9 @@ var pickupClass = function (options) {
 
     this.list = function(item, index, method, postcode, countryCode) {
         var pickup = this;
+        var form   = $('form[name="sylius_checkout_select_shipping"]');
         pickup.remove();
+        form.addClass('loading');
         $.ajax({
             url: getUrl(method, postcode, countryCode),
             type: 'post',
@@ -36,6 +38,7 @@ var pickupClass = function (options) {
             data:{'index':index},
             success: function (response) {
                 item.closest('.item').after(response);
+                form.removeClass('loading');
                 pickup.search(item, index, method);
             }
         });
