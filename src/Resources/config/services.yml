@@ -1,10 +1,17 @@
 services:
-    app.block_event_listener.shop.layout.javascripts:
+    app.block_event_listener.shop.pickup.layout.javascripts:
         class: Sylius\Bundle\UiBundle\Block\BlockEventListener
         arguments:
             - '@@MagentixPickupPlugin/checkout/SelectShipping/pickup.html.twig'
         tags:
             - { name: kernel.event_listener, event: sonata.block.event.sylius.shop.layout.javascripts, method: onBlockEvent }
+
+    app.block_event_listener.shop.pickup.layout.stylesheets:
+        class: Sylius\Bundle\UiBundle\Block\BlockEventListener
+        arguments:
+            - '@@MagentixPickupPlugin/checkout/SelectShipping/stylesheets.html.twig'
+        tags:
+            - { name: kernel.event_listener, event: sonata.block.event.sylius.shop.layout.stylesheets, method: onBlockEvent }
 
     MagentixPickupPlugin\Controller\PickupController:
         public: true

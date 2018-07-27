@@ -1,0 +1,5 @@
+{% set route = app.request.attributes.get('_route') %}
+
+{% if 'select_shipping' in route %}
+{% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'bundles/magentixpickupplugin/style.css'} %}
+{% endif %}

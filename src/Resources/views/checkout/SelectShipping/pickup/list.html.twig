@@ -1,9 +1,5 @@
 {% set list = method.pickup_list %}
 {% if list|length %}
-    <!-- @TODO Move style in an appropriate CSS -->
-    <style>
-        .pickup-list ul.ui.list li:before{content:''}
-    </style>
     <div class="pickup-form">
         <h4 class="ui dividing header">{{ 'pickup.form.shipment.list.search' | trans }}</h4>
         <form class="item pickup-address" action="#">
