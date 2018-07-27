@@ -5,13 +5,13 @@
         <form class="item pickup-address" action="#">
             <div class="field">
                 <label for="pickup_postcode_{{ method.method }}">{{ 'pickup.form.shipment.list.postcode' | trans }}</label>
-                <input type="text" name="postcode" value="{{ method.pickup_postcode }}" id="pickup_postcode_{{ method.method }}" />
+                <input type="text" name="postcode" value="{{ method.pickup_address.getPostcode() }}" id="pickup_postcode_{{ method.method }}" />
             </div>
             <div class="field">
                 <label for="pickup_country_code_{{ method.method }}">{{ 'pickup.form.shipment.list.country_code' | trans }}</label>
                 <select name="country_code" id="pickup_country_code_{{ method.method }}">
                     {% for code,name in method.countries %}
-                        <option value="{{ code }}"{% if (method.pickup_country_code == code) %} selected{% endif %}>{{ name | trans }}</option>
+                        <option value="{{ code }}"{% if (method.pickup_address.getCountryCode() == code) %} selected{% endif %}>{{ name | trans }}</option>
                     {% endfor %}
                 </select>
             </div>

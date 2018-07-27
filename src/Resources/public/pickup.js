@@ -24,11 +24,11 @@ var pickupClass = function (options) {
         });
 
         if (selected.hasClass('pickup')) {
-            pickup.list(selected, selected.attr('tabindex'), selected.attr('value'), null, null);
+            pickup.list(selected, selected.attr('tabindex'), selected.attr('value'), {});
         }
 
         shippingMethods.find('input.pickup').click(function () {
-            pickup.list($(this), $(this).attr('tabindex'), $(this).attr('value'), null, null);
+            pickup.list($(this), $(this).attr('tabindex'), $(this).attr('value'), {});
         });
     };
 
@@ -47,17 +47,17 @@ var pickupClass = function (options) {
      * @param {Element} item
      * @param {int} index
      * @param {string} method
-     * @param {string} postcode
-     * @param {string} countryCode
+     * @param {Object} params
      */
-    this.list = function(item, index, method, postcode, countryCode) {
+    this.list = function(item, index, method, params) {
         var pickup = this;
+        params.index = index;
 
         $.ajax({
             url: getUrl(method),
             type: 'post',
             context: this,
-            data:{'index':index, 'postcode':postcode, 'country_code':countryCode},
+            data:params,
             beforeSend: function() {
                 pickup.remove();
                 pickup.loading(1);
@@ -105,22 +105,7 @@ var pickupClass = function (options) {
         var pickup = this;
         $('.pickup-address').submit(function (event) {
             event.preventDefault();
-
-            var data = $(this).serializeArray();
-
-            var postcode = null;
-            var countryCode = null;
-
-            $.each(data, function (i, field) {
-                if (field.name === 'postcode') {
-                    postcode = field.value;
-                }
-                if (field.name === 'country_code') {
-                    countryCode = field.value;
-                }
-            });
-
-            pickup.list(item, index, method, postcode, countryCode);
+            pickup.list(item, index, method, $(this).serialize());
         });
     };
 

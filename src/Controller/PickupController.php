@@ -55,14 +55,12 @@ final class PickupController extends Controller
     {
         $calculator = $this->getCalculator($method);
 
-        $postcode    = $request->get('postcode', null);
-        $countryCode = $request->get('country_code', null);
+        $params = $request->request->all();
 
-        $pickupTemplate    = $this->getDefaultTemplate();
-        $pickupCurrentId   = null;
-        $pickupList        = [];
-        $pickupPostcode    = '';
-        $pickupCountryCode = [];
+        $pickupTemplate  = $this->getDefaultTemplate();
+        $pickupCurrentId = null;
+        $pickupList      = [];
+        $pickupAddress   = null;
 
         /** @var PickupCalculatorInterface $calculator */
         if ($calculator instanceof PickupCalculatorInterface) {
@@ -78,15 +76,14 @@ final class PickupController extends Controller
                 $shipment = $cart->getShipments()->current();
                 $pickupCurrentId = $shipment->getPickupId();
 
-                if ($postcode) {
-                    $address->setPostcode($postcode);
-                }
-                if ($countryCode) {
-                    $address->setCountryCode($countryCode);
+                foreach ($params as $field => $value) {
+                    $setter = 'set' . preg_replace('/_/', '', ucwords($field, '_'));
+                    if (method_exists($address, $setter)) {
+                        $address->$setter($value);
+                    }
                 }
 
-                $pickupPostcode = $address->getPostcode();
-                $pickupCountryCode = $address->getCountryCode();
+                $pickupAddress = $address;
 
                 $configuration = [];
                 $shippingMethod = $this->getMethod($method);
@@ -98,17 +95,16 @@ final class PickupController extends Controller
             }
         }
 
-        $method = [
-            'pickup_list'         => $pickupList,
-            'pickup_current_id'   => $pickupCurrentId,
-            'pickup_postcode'     => $pickupPostcode,
-            'pickup_country_code' => $pickupCountryCode,
-            'countries'           => $this->getAvailableCountries(),
-            'index'               => $request->get('index', 0),
-            'method'              => $method,
+        $pickup = [
+            'pickup_current_id' => $pickupCurrentId,
+            'pickup_list'       => $pickupList,
+            'pickup_address'    => $pickupAddress,
+            'countries'         => $this->getAvailableCountries(),
+            'index'             => $request->get('index', 0),
+            'method'            => $method,
         ];
 
-        return $this->render($pickupTemplate, ['method' => $method]);
+        return $this->render($pickupTemplate, ['method' => $pickup]);
     }
 
     /**
