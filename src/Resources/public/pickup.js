@@ -1,6 +1,16 @@
+/**
+ * Pickup Class
+ *
+ * @param {Object} options
+ */
 var pickupClass = function (options) {
     var vars = {};
 
+    /**
+     * Constructor
+     *
+     * @param {Object} options
+     */
     this.construct = function (options) {
         var pickup = this;
 
@@ -22,32 +32,75 @@ var pickupClass = function (options) {
         });
     };
 
+    /**
+     * Add Options
+     *
+     * @param {Object} options
+     */
     this.addOptions = function (options) {
         $.extend(vars, options);
     };
 
+    /**
+     * Load Pickup List
+     *
+     * @param {Element} item
+     * @param {int} index
+     * @param {string} method
+     * @param {string} postcode
+     * @param {string} countryCode
+     */
     this.list = function(item, index, method, postcode, countryCode) {
         var pickup = this;
-        var form   = $('form[name="sylius_checkout_select_shipping"]');
-        pickup.remove();
-        form.addClass('loading');
+
         $.ajax({
             url: getUrl(method, postcode, countryCode),
             type: 'post',
             context: this,
             data:{'index':index},
+            beforeSend: function() {
+                pickup.remove();
+                pickup.loading(1);
+            },
             success: function (response) {
                 item.closest('.item').after(response);
-                form.removeClass('loading');
+                pickup.loading(0);
                 pickup.search(item, index, method);
+            },
+            error: function() {
+                pickup.loading(0);
             }
         });
     };
 
+    /**
+     * Add loader
+     *
+     * @param {int} status
+     */
+    this.loading = function(status) {
+        var form = $('form[name="sylius_checkout_select_shipping"]');
+
+        form.removeClass('loading');
+        if (status) {
+            form.addClass('loading');
+        }
+    };
+
+    /**
+     * Remove Pickup List
+     */
     this.remove = function () {
         $('.pickup-form').remove();
     };
 
+    /**
+     * Search trigger
+     *
+     * @param {Element} item
+     * @param {int} index
+     * @param {string} method
+     */
     this.search = function (item, index, method) {
         var pickup = this;
         $('.pickup-address').submit(function (event) {
@@ -71,6 +124,14 @@ var pickupClass = function (options) {
         });
     };
 
+    /**
+     * Retrieve Controller URL
+     *
+     * @param {string} method
+     * @param {string} postcode
+     * @param {string} countryCode
+     * @returns {string}
+     */
     var getUrl = function(method, postcode, countryCode) {
         var url = vars.url + '/' + method;
         if (postcode) {
