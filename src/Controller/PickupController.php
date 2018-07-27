@@ -60,7 +60,7 @@ final class PickupController extends Controller
         $pickupTemplate  = $this->getDefaultTemplate();
         $pickupCurrentId = null;
         $pickupList      = [];
-        $pickupAddress   = null;
+        $currentAddress  = null;
 
         /** @var PickupCalculatorInterface $calculator */
         if ($calculator instanceof PickupCalculatorInterface) {
@@ -83,7 +83,7 @@ final class PickupController extends Controller
                     }
                 }
 
-                $pickupAddress = $address;
+                $currentAddress = $address;
 
                 $configuration = [];
                 $shippingMethod = $this->getMethod($method);
@@ -98,7 +98,7 @@ final class PickupController extends Controller
         $pickup = [
             'pickup_current_id' => $pickupCurrentId,
             'pickup_list'       => $pickupList,
-            'pickup_address'    => $pickupAddress,
+            'address'           => $currentAddress,
             'countries'         => $this->getAvailableCountries(),
             'index'             => $request->get('index', 0),
             'method'            => $method,
