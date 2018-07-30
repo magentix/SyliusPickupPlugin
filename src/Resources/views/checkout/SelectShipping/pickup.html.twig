@@ -1,5 +1,12 @@
+{#
+/**
+ * @author    Matthieu Vion
+ * @copyright 2018 Magentix
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/magentix/pickup-plugin
+ */
+#}
 {% set route = app.request.attributes.get('_route') %}
-
 {% if 'select_shipping' in route %}
     {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/magentixpickupplugin/pickup.js'} %}
     <script>

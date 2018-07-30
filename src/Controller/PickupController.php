@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @author    Matthieu Vion
+ * @copyright 2018 Magentix
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/magentix/pickup-plugin
+ */
 declare(strict_types=1);
 
 namespace MagentixPickupPlugin\Controller;

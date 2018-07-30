@@ -1,4 +1,11 @@
 /**
+ * @author    Matthieu Vion
+ * @copyright 2018 Magentix
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/magentix/pickup-plugin
+ */
+
+/**
  * Pickup Class
  *
  * @param {Object} options
