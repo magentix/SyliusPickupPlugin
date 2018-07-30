@@ -96,12 +96,14 @@ final class PickupController extends Controller
         }
 
         $pickup = [
-            'pickup_current_id' => $pickupCurrentId,
-            'pickup_list'       => $pickupList,
-            'address'           => $currentAddress,
-            'countries'         => $this->getAvailableCountries(),
-            'index'             => $request->get('index', 0),
-            'method'            => $method,
+            'pickup' => [
+                'current_id' => $pickupCurrentId,
+                'list'       => $pickupList,
+            ],
+            'address'   => $currentAddress,
+            'countries' => $this->getAvailableCountries(),
+            'index'     => $request->get('index', 0),
+            'code'      => $method,
         ];
 
         return $this->render($pickupTemplate, ['method' => $pickup]);

@@ -1,16 +1,16 @@
-{% set list = method.pickup_list %}
+{% set list = method.pickup.list %}
 {% if list|length %}
     <div class="pickup-form">
         {% if (method.address) %}
             <h4 class="ui dividing header">{{ 'pickup.form.shipment.list.search' | trans }}</h4>
             <form class="item pickup-address" action="#">
                 <div class="field">
-                    <label for="pickup_postcode_{{ method.method }}">{{ 'pickup.form.shipment.list.postcode' | trans }}</label>
-                    <input type="text" name="postcode" value="{{ method.address.getPostcode() }}" id="pickup_postcode_{{ method.method }}" />
+                    <label for="pickup_postcode_{{ method.code }}">{{ 'pickup.form.shipment.list.postcode' | trans }}</label>
+                    <input type="text" name="postcode" value="{{ method.address.getPostcode() }}" id="pickup_postcode_{{ method.code }}" />
                 </div>
                 <div class="field">
-                    <label for="pickup_country_code_{{ method.method }}">{{ 'pickup.form.shipment.list.country_code' | trans }}</label>
-                    <select name="country_code" id="pickup_country_code_{{ method.method }}">
+                    <label for="pickup_country_code_{{ method.code }}">{{ 'pickup.form.shipment.list.country_code' | trans }}</label>
+                    <select name="country_code" id="pickup_country_code_{{ method.code }}">
                         {% for code,name in method.countries %}
                             <option value="{{ code }}"{% if (method.address.getCountryCode() == code) %} selected{% endif %}>{{ name | trans }}</option>
                         {% endfor %}
@@ -32,7 +32,7 @@
                 <ul class="ui radio checkbox list">
                     {% for pickup in list.pickup %}
                         <li>
-                            <input type="radio" name="sylius_checkout_select_shipping[shipments][{{ method.index }}][pickup_id]" value="{{ pickup.id }}" id="pickup_{{ pickup.id }}"{% if (method.pickup_current_id == pickup.id) %} checked{% endif %}/>
+                            <input type="radio" name="sylius_checkout_select_shipping[shipments][{{ method.index }}][pickup_id]" value="{{ pickup.id }}" id="pickup_{{ pickup.id }}"{% if (method.pickup.current_id == pickup.id) %} checked{% endif %}/>
                             <label for="pickup_{{ pickup.id }}"><strong>{{ pickup.company }}</strong> - {{ pickup.street_1 }} {{ pickup.postcode }} {{ pickup.city }}</label>
                         </li>
                     {% endfor %}
