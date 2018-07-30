@@ -19,7 +19,7 @@ var pickupClass = function (options) {
         var shippingMethods = $('#sylius-shipping-methods');
         var selected = shippingMethods.find('input.pickup:checked');
 
-        shippingMethods.find('input').click(function () {
+        shippingMethods.find('input').change(function () {
             pickup.remove();
         });
 
@@ -27,7 +27,7 @@ var pickupClass = function (options) {
             pickup.list(selected, selected.attr('tabindex'), selected.attr('value'), {});
         }
 
-        shippingMethods.find('input.pickup').click(function () {
+        shippingMethods.find('input.pickup').change(function () {
             pickup.list($(this), $(this).attr('tabindex'), $(this).attr('value'), {});
         });
     };
