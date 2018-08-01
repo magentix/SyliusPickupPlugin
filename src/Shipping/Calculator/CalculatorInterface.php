@@ -7,6 +7,7 @@ namespace MagentixPickupPlugin\Shipping\Calculator;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface as BaseCalculatorInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 
 interface CalculatorInterface extends BaseCalculatorInterface
 {
@@ -16,19 +17,22 @@ interface CalculatorInterface extends BaseCalculatorInterface
      *
      * @param AddressInterface $address
      * @param OrderInterface $cart
-     * @param array $configuration
+     * @param ShippingMethodInterface $shippingMethod
      * @return array
      */
-    public function getPickupList(AddressInterface $address, OrderInterface $cart, array $configuration): array;
+    public function getPickupList(
+        AddressInterface $address,
+        OrderInterface $cart,
+        ShippingMethodInterface $shippingMethod): array;
 
     /**
      * Retrieve pickup Address
      *
      * @param string $pickupId
-     * @param array $configuration
+     * @param ShippingMethodInterface $shippingMethod
      * @return array
      */
-    public function getPickupAddress(string $pickupId, array $configuration): array;
+    public function getPickupAddress(string $pickupId, ShippingMethodInterface $shippingMethod): array;
 
     /**
      * Retrieve pickup template

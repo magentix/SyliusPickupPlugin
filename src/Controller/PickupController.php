@@ -87,16 +87,9 @@ final class PickupController extends Controller
                         $address->$setter($value);
                     }
                 }
-
                 $currentAddress = $address;
 
-                $configuration = [];
-                $shippingMethod = $this->getMethod($method);
-                if ($shippingMethod) {
-                    $configuration = $shippingMethod->getConfiguration();
-                }
-
-                $pickupList = $calculator->getPickupList($address, $cart, $configuration);
+                $pickupList = $calculator->getPickupList($address, $cart, $this->getMethod($method));
             }
         }
 

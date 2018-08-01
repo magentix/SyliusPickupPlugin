@@ -14,6 +14,7 @@ use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Core\Repository\ShipmentRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Core\Model\Order;
+use Sylius\Component\Core\Model\ShippingMethod;
 
 class PickupListener
 {
@@ -59,14 +60,12 @@ class PickupListener
         if ($shipment->getPickupId()) {
             $current = $this->shipmentRepository->find($shipment->getId());
             if ($current) {
+                /** @var ShippingMethod $method */
                 $method = $this->shippingMethodRepository->find($current->getMethod()->getId());
                 $calculator = $this->calculatorRegistry->get($method->getCalculator());
 
                 if ($calculator instanceof PickupCalculatorInterface) {
-                    $pickup = $calculator->getPickupAddress(
-                        $shipment->getPickupId(),
-                        $method->getConfiguration()
-                    );
+                    $pickup = $calculator->getPickupAddress($shipment->getPickupId(), $method);
 
                     if (!$pickup['error']) {
                         $pickupAddress = $pickup['pickup'];
