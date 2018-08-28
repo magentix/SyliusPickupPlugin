@@ -1,6 +1,6 @@
 services:
     sylius.customer_order_addresses_saver:
-        class: MagentixSyliusPickupPlugin\Component\Core\Customer\CustomerOrderAddressesSaver
+        class: Magentix\SyliusPickupPlugin\Component\Core\Customer\CustomerOrderAddressesSaver
         public: true
         arguments:
             - "@sylius.customer_unique_address_adder"

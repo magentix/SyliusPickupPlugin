@@ -14,7 +14,7 @@ services:
             - { name: kernel.event_listener, event: sonata.block.event.sylius.shop.layout.stylesheets, method: onBlockEvent }
 
     magentix_sylius_pickup_plugin.order.initialize_complete:
-        class: MagentixSyliusPickupPlugin\EventListener\OrderInitializeCompleteListener
+        class: Magentix\SyliusPickupPlugin\EventListener\OrderInitializeCompleteListener
         arguments:
             - "@sylius.registry.shipping_calculator"
             - "@sylius.repository.shipping_method"
@@ -23,7 +23,7 @@ services:
             - { name: kernel.event_listener, event: sylius.order.initialize_complete, method: updateShippingAddress }
 
     magentix_sylius_pickup_plugin.order.pre_complete:
-        class: MagentixSyliusPickupPlugin\EventListener\OrderPreCompleteListener
+        class: Magentix\SyliusPickupPlugin\EventListener\OrderPreCompleteListener
         arguments:
             - "@sylius.registry.shipping_calculator"
             - "@sylius.repository.shipping_method"
