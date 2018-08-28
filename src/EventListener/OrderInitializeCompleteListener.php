@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace MagentixPickupPlugin\EventListener;
+namespace Magentix\SyliusPickupPlugin\EventListener;
 
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\Order;

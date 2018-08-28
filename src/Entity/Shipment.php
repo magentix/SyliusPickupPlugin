@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace MagentixPickupPlugin\Entity;
+namespace Magentix\SyliusPickupPlugin\Entity;
 
 use Sylius\Component\Core\Model\Shipment as BaseShipment;
 

@@ -8,7 +8,7 @@
  */
 declare(strict_types=1);
 
-namespace MagentixPickupPlugin\Component\Core\Customer;
+namespace Magentix\SyliusPickupPlugin\Component\Core\Customer;
 
 use Sylius\Component\Core\Customer\OrderAddressesSaverInterface;
 use Sylius\Component\Core\Customer\CustomerAddressAdderInterface;

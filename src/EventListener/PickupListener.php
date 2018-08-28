@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace MagentixPickupPlugin\EventListener;
+namespace Magentix\SyliusPickupPlugin\EventListener;
 
-use MagentixPickupPlugin\Shipping\Calculator\CalculatorInterface as PickupCalculatorInterface;
+use Magentix\SyliusPickupPlugin\Shipping\Calculator\CalculatorInterface as PickupCalculatorInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Core\Repository\ShipmentRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;

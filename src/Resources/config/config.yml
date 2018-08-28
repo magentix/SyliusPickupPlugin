@@ -1,8 +1,8 @@
 imports:
-    - { resource: "@MagentixPickupPlugin/Resources/config/services.yml" }
+    - { resource: "@MagentixSyliusPickupPlugin/Resources/config/services.yml" }
 
 sylius_shipping:
     resources:
         shipment:
             classes:
-                model: MagentixPickupPlugin\Entity\Shipment
+                model: MagentixSyliusPickupPlugin\Entity\Shipment

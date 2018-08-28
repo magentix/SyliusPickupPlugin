@@ -1,4 +1,4 @@
-MagentixPickupPlugin\Entity\Shipment:
+MagentixSyliusPickupPlugin\Entity\Shipment:
     type: entity
     table: sylius_shipment
     fields:

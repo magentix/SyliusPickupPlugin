@@ -1,20 +1,20 @@
 services:
-    magentix_pickup_plugin.shop.layout.javascripts:
+    magentix_sylius_pickup_plugin.shop.layout.javascripts:
         class: Sylius\Bundle\UiBundle\Block\BlockEventListener
         arguments:
-            - '@@MagentixPickupPlugin/checkout/SelectShipping/pickup.html.twig'
+            - '@@MagentixSyliusPickupPlugin/checkout/SelectShipping/pickup.html.twig'
         tags:
             - { name: kernel.event_listener, event: sonata.block.event.sylius.shop.layout.javascripts, method: onBlockEvent }
 
-    magentix_pickup_plugin.shop.layout.stylesheets:
+    magentix_sylius_pickup_plugin.shop.layout.stylesheets:
         class: Sylius\Bundle\UiBundle\Block\BlockEventListener
         arguments:
-            - '@@MagentixPickupPlugin/checkout/SelectShipping/stylesheets.html.twig'
+            - '@@MagentixSyliusPickupPlugin/checkout/SelectShipping/stylesheets.html.twig'
         tags:
             - { name: kernel.event_listener, event: sonata.block.event.sylius.shop.layout.stylesheets, method: onBlockEvent }
 
-    magentix_pickup_plugin.order.initialize_complete:
-        class: MagentixPickupPlugin\EventListener\OrderInitializeCompleteListener
+    magentix_sylius_pickup_plugin.order.initialize_complete:
+        class: MagentixSyliusPickupPlugin\EventListener\OrderInitializeCompleteListener
         arguments:
             - "@sylius.registry.shipping_calculator"
             - "@sylius.repository.shipping_method"
@@ -22,8 +22,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: sylius.order.initialize_complete, method: updateShippingAddress }
 
-    magentix_pickup_plugin.order.pre_complete:
-        class: MagentixPickupPlugin\EventListener\OrderPreCompleteListener
+    magentix_sylius_pickup_plugin.order.pre_complete:
+        class: MagentixSyliusPickupPlugin\EventListener\OrderPreCompleteListener
         arguments:
             - "@sylius.registry.shipping_calculator"
             - "@sylius.repository.shipping_method"

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace MagentixPickupPlugin\Controller;
+namespace Magentix\SyliusPickupPlugin\Controller;
 
-use MagentixPickupPlugin\Shipping\Calculator\CalculatorInterface as PickupCalculatorInterface;
+use Magentix\SyliusPickupPlugin\Shipping\Calculator\CalculatorInterface as PickupCalculatorInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Core\Model\ShippingMethod;
@@ -220,6 +220,6 @@ final class PickupController extends Controller
      */
     protected function getDefaultTemplate(): string
     {
-        return '@MagentixPickupPlugin/checkout/SelectShipping/pickup/list.html.twig';
+        return '@MagentixSyliusPickupPlugin/checkout/SelectShipping/pickup/list.html.twig';
     }
 }
