@@ -3,7 +3,7 @@
     "type": "sylius-plugin",
     "description": "Pickup Shipping plugin for Sylius.",
     "license": "MIT",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "require": {
         "php": "^7.1",
         "sylius/sylius": "~1.2",
