@@ -136,6 +136,7 @@ var pickupClass = function (options) {
  */
 var mapOsmClass = function (options) {
     var vars = {
+        'mapId': null,
         'map': null,
         'markers': []
     };
@@ -146,12 +147,27 @@ var mapOsmClass = function (options) {
      * @param {Object} options
      */
     this.construct = function (options) {
-        vars.map = L.map(options.mapId);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            id: 'mapbox.streets'
-        }).addTo(vars.map);
-        vars.map.attributionControl.setPrefix('');
+        this.addOptions(options);
+
+        if (vars.mapId) {
+            var map = L.map(vars.mapId);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                id: 'mapbox.streets'
+            }).addTo(map);
+            map.attributionControl.setPrefix('');
+
+            this.addOptions({'map': map});
+        }
+    };
+
+    /**
+     * Add Options
+     *
+     * @param {Object} options
+     */
+    this.addOptions = function (options) {
+        $.extend(vars, options);
     };
 
     /**
