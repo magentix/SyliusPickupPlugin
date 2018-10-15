@@ -6,7 +6,7 @@
 ## Installation
 
 ```bash
-$ composer require magentix/pickup-plugin
+$ composer require magentix/sylius-pickup-plugin
 ```
     
 Add plugin dependencies to your `AppKernel.php` file:
