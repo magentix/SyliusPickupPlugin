@@ -1,7 +1,7 @@
 ## Notes
 
 * This Plugin is a generic plugin allows to add pickup delivery
-* See [Pickup Demo Plugin](https://github.com/magentix/pickup-demo-plugin) for an example of implementation
+* See [Pickup Demo Plugin](https://github.com/magentix/SyliusPickupDemoPlugin) for an example of implementation
 
 ## Installation
 
