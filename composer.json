@@ -1,9 +1,9 @@
 {
-    "name": "magentix/pickup-plugin",
+    "name": "magentix/sylius-pickup-plugin",
     "type": "sylius-plugin",
     "description": "Pickup Shipping plugin for Sylius.",
     "license": "MIT",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "require": {
         "php": "^7.1",
         "sylius/sylius": "~1.2",
