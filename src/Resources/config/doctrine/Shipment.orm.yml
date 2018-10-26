@@ -1,5 +1,5 @@
 Magentix\SyliusPickupPlugin\Entity\Shipment:
-    type: entity
+    type: mappedSuperclass
     table: sylius_shipment
     fields:
         pickup_id:
