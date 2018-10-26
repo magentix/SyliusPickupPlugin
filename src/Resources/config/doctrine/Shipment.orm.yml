@@ -1,7 +1,0 @@
-Magentix\SyliusPickupPlugin\Entity\Shipment:
-    type: entity
-    table: sylius_shipment
-    fields:
-        pickup_id:
-            type: string
-            nullable: true

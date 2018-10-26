@@ -9,12 +9,19 @@ declare(strict_types=1);
 
 namespace Magentix\SyliusPickupPlugin\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Shipment as BaseShipment;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table("sylius_shipment")
+ */
 class Shipment extends BaseShipment
 {
     /**
-     * @var string $pickup_id
+     * @var string $pickup_id|null
+     *
+     * @ORM\Column(name="pickup_id", type="string", nullable=true, length=255)
      */
     private $pickup_id;
 
