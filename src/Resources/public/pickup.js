@@ -214,6 +214,7 @@ var mapOsmClass = function (options) {
         var input = $('#' + inputId);
         if (input) {
             input.prop('checked', true);
+            this.additional(inputId);
         }
     };
 
@@ -226,6 +227,17 @@ var mapOsmClass = function (options) {
         if (vars.markers[locationId] && vars.map) {
             vars.markers[locationId].openPopup();
         }
+        this.additional(locationId);
+    };
+
+    /**
+     * Show pickup additional data if exists
+     *
+     * @param {string} elementId - Id of selected element
+     */
+    this.additional = function (elementId) {
+        $('.pickup-additional-data').hide();
+        $('#' + elementId + '_additional').show();
     };
 
     this.construct(options);
