@@ -150,12 +150,13 @@ var mapOsmClass = function (options) {
         this.addOptions(options);
 
         if (vars.mapId) {
-            var map = L.map(vars.mapId);
+            var map = L.map(vars.mapId, {dragging: !L.Browser.mobile, touchZoom: true});
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 id: 'mapbox.streets'
             }).addTo(map);
             map.attributionControl.setPrefix('');
+            map.scrollWheelZoom.disable();
 
             this.addOptions({'map': map});
         }
