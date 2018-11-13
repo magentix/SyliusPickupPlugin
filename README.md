@@ -9,39 +9,30 @@
 $ composer require magentix/sylius-pickup-plugin
 ```
     
-Add plugin dependencies to your `AppKernel.php` file:
+Add the plugin to the config/bundles.php file:
 
 ```php
-public function registerBundles()
-{
-    $bundles = [
-        ...
-        new \Magentix\SyliusPickupPlugin\MagentixSyliusPickupPlugin(),
-    ];
-}
+Magentix\SyliusPickupPlugin\MagentixSyliusPickupPlugin::class => ['all' => true],
 ```
 
-Import required config in your `app/config/config.yml` file:
+Add the plugin's config to by creating the file config/packages/magentix_sylius_pickup_plugin.yaml with the following content:
 
 ```yaml
-# app/config/config.yml
-
 imports:
-    ...   
     - { resource: "@MagentixSyliusPickupPlugin/Resources/config/config.yml" }
 ```
 
-Import routing in your `app/config/routing.yml` file:
+Add the plugin's routing by creating the file config/routes/magentix_sylius_pickup_plugin.yaml with the following content:
 
 ```yaml
-# app/config/routing.yml
-...
-
 magentix_sylius_pickup_plugin:
     resource: "@MagentixSyliusPickupPlugin/Resources/config/routing.yml"
 ```
 
-Deploy Assets:
+Finish the installation by updating the database schema and installing assets:
 
 ```bash
-php bin/console sylius:theme:assets:install
+bin/console doctrine:migrations:diff
+bin/console doctrine:migrations:migrate
+bin/console assets:install
+bin/console sylius:theme:assets:install
